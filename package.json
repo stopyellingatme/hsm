@@ -1,0 +1,134 @@
+{
+	"name": "hsm",
+	"version": "0.1.0",
+	"private": true,
+	"description": "Health Score Monitor",
+	"engines": {
+		"npm": ">=3"
+	},
+	"scripts": {
+		"preinstall": "node tools/nodeVersionCheck.js",
+		"start": "concurrently -k -r -s first \"npm run open:src\" \"npm run lint:watch\"",
+		"serve": "node ./backend/server.js",
+		"open:src": "babel-node tools/srcServer.js",
+		"open:dist": "babel-node tools/distServer.js",
+		"lint": "esw webpack.config.* src tools --color",
+		"lint:watch": "npm run lint -- --watch",
+		"clean-dist": "npm run remove-dist && mkdir dist",
+		"remove-dist": "rimraf ./dist",
+		"prebuild": "npm run lint && npm run clean-dist",
+		"build": "babel-node tools/build.js && npm run open:dist",
+		"open:cover": "opn ./coverage/lcov-report/index.html",
+		"analyze-bundle": "babel-node ./tools/analyzeBundle.js"
+	},
+	"author": "",
+	"license": "",
+	"dependencies": {
+		"dateformat": "^3.0.3",
+		"firebase": "^5.2.0",
+		"object-assign": "^4.1.1",
+		"react": "^16.4.1",
+		"react-dom": "^16.4.1",
+		"react-redux": "^5.0.7",
+		"react-router-dom": "^4.3.1",
+		"react-router-redux": "5.0.0-alpha.6",
+		"redux": "^4.0.0",
+		"redux-thunk": "^2.3.0",
+		"semantic-ui-react": "^0.81.3",
+		"sweetalert2": "^7.24.4"
+	},
+	"devDependencies": {
+		"autoprefixer": "^8.6.4",
+		"babel-cli": "^6.26.0",
+		"babel-core": "^6.26.3",
+		"babel-eslint": "^8.2.5",
+		"babel-loader": "^7.1.4",
+		"babel-plugin-transform-react-constant-elements": "^6.23.0",
+		"babel-plugin-transform-react-remove-prop-types": "^0.4.13",
+		"babel-polyfill": "^6.26.0",
+		"babel-preset-env": "^1.7.0",
+		"babel-preset-react": "^6.24.1",
+		"babel-preset-react-hmre": "^1.1.1",
+		"babel-preset-stage-1": "^6.24.1",
+		"browser-sync": "^2.24.5",
+		"chalk": "^2.4.1",
+		"concurrently": "^3.6.0",
+		"connect-history-api-fallback": "^1.5.0",
+		"coveralls": "^3.0.2",
+		"css-loader": "^0.28.11",
+		"eslint": "^5.0.1",
+		"eslint-plugin-import": "2.13.0",
+		"eslint-plugin-react": "^7.10.0",
+		"eslint-watch": "^4.0.0",
+		"extract-text-webpack-plugin": "^3.0.2",
+		"file-loader": "^1.1.11",
+		"history": "^4.7.2",
+		"html-webpack-plugin": "^3.2.0",
+		"identity-obj-proxy": "^3.0.0",
+		"json-loader": "^0.5.7",
+		"node": "^10.5.0",
+		"node-sass": "^4.9.0",
+		"opn-cli": "^3.1.0",
+		"postcss-loader": "^2.1.5",
+		"prompt": "^1.0.0",
+		"raf": "^3.4.0",
+		"react-hot-loader": "^4.3.3",
+		"react-test-renderer": "^16.4.1",
+		"replace": "^1.0.0",
+		"rimraf": "^2.6.2",
+		"sass-loader": "^7.0.3",
+		"style-loader": "^0.21.0",
+		"url-loader": "^1.0.1",
+		"webpack": "^4.15.0",
+		"webpack-bundle-analyzer": "^2.13.1",
+		"webpack-dev-middleware": "^3.1.3",
+		"webpack-hot-middleware": "^2.22.2",
+		"webpack-md5-hash": "^0.0.6"
+	},
+	"keywords": [],
+	"repository": {
+		"type": "git",
+		"url": ""
+	},
+	"babel": {
+		"env": {
+			"development": {
+				"presets": [
+					"env",
+					"react",
+					"react-hmre",
+					"stage-1"
+				]
+			},
+			"production": {
+				"presets": [
+					[
+						"env",
+						{
+							"es2015": {
+								"modules": false
+							},
+							"targets": {
+								"ie": 9,
+								"uglify": true
+							}
+						}
+					],
+					"react",
+					"stage-1"
+				],
+				"plugins": [
+					"transform-react-constant-elements",
+					"transform-react-remove-prop-types"
+				]
+			},
+			"test": {
+				"presets": [
+					"env",
+					"react",
+					"stage-1"
+				]
+			}
+		}
+	}
+}
