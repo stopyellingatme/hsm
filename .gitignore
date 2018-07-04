@@ -39,12 +39,7 @@ dist
 # Mac files
 .DS_Store
 
-Firebase config
-/src/firebase/firebase.js
-
-/backend/functions
-
-*.editorconfig
+/backend/functions/node_modules
 
 .env
 
