@@ -38,10 +38,12 @@ class LoginForm extends Component {
 		} = this.state;
 
 		dispatch(loginUser(email, password))
-			.then(() => {
+			.then(data => {
+				console.log(data);
 				this.props.history.push('/dashboard');
 			})
 			.catch(error => {
+				console.log(error);
 				this.setState(updateByPropertyName('error', error));
 			});
 	}

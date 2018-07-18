@@ -1,20 +1,23 @@
-// models/user.ts
+import { Company } from "./company";
 
-export interface User {
-	id: number;
-	email: string;
-	name: Name;
-	status?: status;
+export class User {
+	public ID: string;
+	public Email: string;
+	public Type: UserType;
+	// List<Company>
+	public READ_ONLY?: Company[];
+	public READ_WRITE?: Company[];
+
+	// ** USER TX DATA
+	public CreatedAt: Date;
+	public LastLogin: Date;
+	public LoginCount: number;
+	public Archived: boolean;
+	public ArchivedAt?: Date;
+
 }
 
-export type status = 'Happy' | 'Sad';
-
-export interface Name {
-	first: string;
-	last?: string;
-}
-
-export interface UserCreationRequest {
-	email: string;
-	name: Name;
+enum UserType {
+	"Pro",
+	"Basic"
 }

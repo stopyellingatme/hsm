@@ -28,4 +28,31 @@ export const userLogIn = (id) =>
 	});
 
 
+/**
+ * Create New Company
+ */
+export const createNewCompany = (name, user_id) =>
+	db.collection(`companies`).add({
+		name: name,
+		mainSector: "",
+		subSector: "",
+		headquarters: "",
+		readOnly: {},
+		readWrite: { user_id },
+
+		createdAt: dateformat(new Date(), 'dddd, mmmm d, yyyy, hh:MM:ss TT.'),
+		createdBy: "",
+		updatedAt: "",
+		updatedBy: "",
+		archived: false,
+		archivedAt: "",
+		archivedBy: ""
+	}).then(res => {
+		let comp_id = res.id;
+		db.collection(`users`).doc(user_id).update({
+			readOnly: {},
+			readWrite: { comp_id }
+		})
+	});
+
 

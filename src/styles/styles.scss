@@ -107,13 +107,19 @@ body {
             border-bottom: 2px solid;
             border-color: rgb(223, 193, 41);
             transition: border-color .3s ease-in;
-        }
+				}
+
+				// ONLY FOUND WHEN PAGE IS RENDERED. SPECIFIC FOR SEMANTIC UI
         .right.menu {
             height: 100%;
             color: white;
-            .dropdown {
-                margin: -2vh -60px 0 0;
-            }
+            // .dropdown {
+            //     margin: -2vh -60px 0 0;
+						// }
+						.settings-dropdown {
+							margin: 0px 14vw 0 0;
+							user-select: none;
+						}
             .transition {
                 margin: 0 0 0 -100px;
                 right: auto !important;
@@ -152,7 +158,7 @@ body {
 
 .sign-up-page {
 		justify-content: center;
-		margin: 15% 0 0 0;
+		margin: 10% 0 0 0;
 		display: flex;
     .sign-up-card {
         padding: 55px;
@@ -182,7 +188,7 @@ body {
 
 .login-page {
 		justify-content: center;
-		margin: 15% 0 0 0;
+		margin: 10% 0 0 0;
 		display: flex;
     .login-card {
         padding: 45px 55px 45px 55px;

@@ -4,21 +4,35 @@ const functions = require('firebase-functions');
 // The Firebase Admin SDK to access the Firebase Realtime Database.
 const admin = require('firebase-admin');
 admin.initializeApp();
-console.log(admin);
+// console.log(admin);
+
+import * as dateformat from 'dateformat';
 
 
 //* --->    firebase deploy --only functions   <--- RUN THIS TO DEPLOY ONLY FUNCTIONS
 
-
+//#region Email
 exports.sendWelcomeEmail = functions.auth.user().onCreate((user) => {
 	const email = user.email; // The email of the user.
+	const id = user.id;
+	const type = "PRO";
 	// ...
+	admin.firestore.collection(`users`).doc(`${id}`).set({
+		id,
+		email,
+		type,
+		createAt: dateformat(new Date(), 'dddd, mmmm d, yyyy, hh:MM:ss TT.'),
+		lastLogin: dateformat(new Date(), 'dddd, mmmm d, yyyy, hh:MM:ss TT.')
+	});
 });
 
 exports.sendByeEmail = functions.auth.user().onDelete((user) => {
 	// ...
 });
+//#endregion
 
+
+//#region API
 exports.basicAPI = functions.https.onRequest((request, response) => {
 	response.send("Firebase API working!");
 });
@@ -34,13 +48,39 @@ exports.addMessage = functions.https.onRequest((req, res) => {
 
 
 	// Push the new message into the Realtime Database using the Firebase Admin SDK.
-	// return admin.database().ref('/messages').push({ original: original }).then((snapshot) => {
+	return admin.database().ref('/messages').push({ original: original }).then((snapshot) => {
 		// Redirect with 303 SEE OTHER to the URL of the pushed object in the Firebase console.
-		// return res.redirect(303, snapshot.ref.toString());
-	// });
+		return res.redirect(303, snapshot.ref.toString());
+	});
 });
+//#endregion
 
-// Listen for any change on document `marie` in collection `users`
+//#region Functions Company
+exports.generateCompany = functions.firestore
+	.document('companies/{companyId}')
+	.onCreate((snap, context) => {
+		// Get an object representing the document
+		const newValue = snap.data();
+
+		snap.set({
+			name: name,
+			mainSector: "",
+			subSector: "",
+			headquarters: "",
+
+			createdAt: dateformat(new Date(), 'dddd, mmmm d, yyyy, hh:MM:ss TT.'),
+			createdBy: "",
+			updatedAt: dateformat(new Date(), 'dddd, mmmm d, yyyy, hh:MM:ss TT.'),
+			updatedBy: "",
+			archived: false,
+			archivedAt: "",
+			archivedBy: ""
+		}, { merge: true });
+
+	});
+//#endregion
+
+//#region Functions User
 exports.myFunctionName = functions.firestore
 	.document('users/marie').onWrite((change, context) => {
 		// ... Your code here
@@ -154,3 +194,5 @@ exports.useMultipleWildcards = functions.firestore
 		// ... and ...
 		// change.after.data() == {body: "Hello"}
 	});
+
+	//#endregion

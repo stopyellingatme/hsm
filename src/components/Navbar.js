@@ -62,8 +62,8 @@ class NavBar extends Component {
 				/>
 				<Menu.Menu position="right">
 					<Dropdown
-						className="nav-link"
-						text={<Icon fitted size="big" name="setting" />}
+						className="nav-link settings-dropdown"
+						text="SETTINGS "
 						onClick={this.toggleVisibility}
 						floating
 						basic

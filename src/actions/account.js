@@ -42,10 +42,11 @@ export function signupNewAccount(email, password) {
 	return dispatch => {
 		dispatch(requestSignUp());
 		return doCreateUserWithEmailAndPassword(email, password)
-			.then(authUser => {
+			.then(auth_obj => {
 				// @param  {TYPE} -> Set to PRO until payment gateway is configuered
-				dispatch(receiveSignUp(authUser));
-				doCreateUser(authUser.uid, email, "PRO");
+				dispatch(receiveSignUp(auth_obj.user));
+				console.log(auth_obj);
+				return doCreateUser(auth_obj.user.uid, email, "PRO");
 			})
 			.catch(err => {
 				console.log(err);

@@ -8,8 +8,6 @@ class SideBar extends Component {
 		open: false,
 	}
 
-	handleItemClick = (e, { name }) => this.setState({ activeItem: name })
-
 	handleOpen = () => {
 		this.setState({ open: true })
 	}
@@ -20,74 +18,26 @@ class SideBar extends Component {
 
 	render() {
 		if (this.props.location.pathname !== '/dashboard') return null;
-		const { activeItem, open } = this.state
+		const { open } = this.state
 
 		return (
 			<div className='sidebar-wrapper'>
 				<Menu vertical className="__sidebar">
-					<Menu.Item className="logo-area">
-						<Icon className="logo" loading name="code" />
-					</Menu.Item>
 					<Menu.Item>
 						<Input placeholder="Search..." />
 					</Menu.Item>
 
 					<Menu.Item>
-						Home
+						OPTIONS
 
               <Menu.Menu>
-							<Menu.Item name="search" active={activeItem === 'search'} onClick={this.handleItemClick}>
+							<Menu.Item name="search" onClick={null}>
 								Search
                 </Menu.Item>
-							<Menu.Item name="add" active={activeItem === 'add'} onClick={this.handleItemClick}>
+							<Menu.Item name="add" onClick={null}>
 								Add
                 </Menu.Item>
-							<Menu.Item name="about" active={activeItem === 'about'} onClick={this.handleItemClick}>
-								Remove
-                </Menu.Item>
-							<Menu.Item name="search" active={activeItem === 'search'} onClick={this.handleItemClick}>
-								Search
-                </Menu.Item>
-							<Menu.Item name="add" active={activeItem === 'add'} onClick={this.handleItemClick}>
-								Add
-                </Menu.Item>
-							<Menu.Item name="about" active={activeItem === 'about'} onClick={this.handleItemClick}>
-								Remove
-                </Menu.Item>
-							<Menu.Item name="search" active={activeItem === 'search'} onClick={this.handleItemClick}>
-								Search
-                </Menu.Item>
-							<Menu.Item name="add" active={activeItem === 'add'} onClick={this.handleItemClick}>
-								Add
-                </Menu.Item>
-							<Menu.Item name="about" active={activeItem === 'about'} onClick={this.handleItemClick}>
-								Remove
-                </Menu.Item>
-							<Menu.Item name="search" active={activeItem === 'search'} onClick={this.handleItemClick}>
-								Search
-                </Menu.Item>
-							<Menu.Item name="add" active={activeItem === 'add'} onClick={this.handleItemClick}>
-								Add
-                </Menu.Item>
-							<Menu.Item name="about" active={activeItem === 'about'} onClick={this.handleItemClick}>
-								Remove
-                </Menu.Item>
-							<Menu.Item name="search" active={activeItem === 'search'} onClick={this.handleItemClick}>
-								Search
-                </Menu.Item>
-							<Menu.Item name="add" active={activeItem === 'add'} onClick={this.handleItemClick}>
-								Add
-                </Menu.Item>
-							<Menu.Item name="about" active={activeItem === 'about'} onClick={this.handleItemClick}>
-								Remove
-                </Menu.Item>
-							<Menu.Item name="search" active={activeItem === 'search'} onClick={this.handleItemClick}>
-								Search
-                </Menu.Item>
-							<Menu.Item name="add" active={activeItem === 'add'} onClick={this.handleItemClick}>
-								Add
-                </Menu.Item>
-							<Menu.Item name="about" active={activeItem === 'about'} onClick={this.handleItemClick}>
+							<Menu.Item name="about" onClick={null}>
 								Remove
                 </Menu.Item>
 						</Menu.Menu>
@@ -114,8 +64,8 @@ class SideBar extends Component {
 								<p>To close, simply click the close button or click away</p>
 							</Segment>
 						</Portal>
-            </Menu.Item>
-					<Menu.Item name="messages" active={activeItem === 'messages'} onClick={this.handleItemClick}>
+					</Menu.Item>
+					<Menu.Item name="messages" onClick={this.handleItemClick}>
 						Messages
             </Menu.Item>
 				</Menu>
