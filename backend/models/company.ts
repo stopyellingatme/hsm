@@ -7,7 +7,6 @@ import { User } from './user'
 
 export class Company {
 	// Required Fields
-	public ID: string;
 	public CompanyID: string;
 	public Name: string;
 	// List<User>
@@ -24,6 +23,7 @@ export class Company {
 	// Current Health Score
 	public HealthScore?: number;
 
+	// Financial Data
 	public HealthScoreData?: HealthScore[];
 	public FinancialRatioData?: FinancialRatioData[];
 	public BalanceSheetData?: BalanceSheet[];

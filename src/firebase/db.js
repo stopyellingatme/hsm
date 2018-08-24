@@ -31,7 +31,7 @@ export const userLogIn = (id) =>
 /**
  * Create New Company
  */
-export const createNewCompany = (name, user_id) =>
+export const createNewCompany = (name, user_id) => (
 	db.collection(`companies`).add({
 		name: name,
 		mainSector: "",
@@ -53,6 +53,7 @@ export const createNewCompany = (name, user_id) =>
 			readOnly: {},
 			readWrite: { comp_id }
 		})
-	});
+	})
+);
 
 

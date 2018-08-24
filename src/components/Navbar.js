@@ -1,15 +1,18 @@
 "use strict";
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { NavLink, withRouter } from "react-router-dom";
 import { Menu, Icon, Dropdown, Transition } from "semantic-ui-react";
-import { auth } from '../firebase/firebase'
+import { auth } from '../firebase/firebase';
+import NewCompanyModal from "./Special Modals/NewCompanyModal";
 
 class NavBar extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			activeItem: this.props.history.pathname,
-			visible: false
+			visible: false,
+			error: {}
 		};
 		this.handleItemClick = this.handleItemClick.bind(this);
 	}
@@ -19,7 +22,6 @@ class NavBar extends Component {
 	handleItemClick(e, { name }) {
 		this.setState({ activeItem: name });
 	}
-
 
 	render() {
 		const {
@@ -63,14 +65,14 @@ class NavBar extends Component {
 				<Menu.Menu position="right">
 					<Dropdown
 						className="nav-link settings-dropdown"
-						text="SETTINGS "
+						text={<Icon name='setting' size='big' />}
 						onClick={this.toggleVisibility}
 						floating
-						basic
+						button
 					>
 						<Transition visible={visible} animation='scale' duration={200}>
 							<Dropdown.Menu>
-								<Dropdown.Item text='New' />
+								<NewCompanyModal userId={this.props.account.account ? (this.props.account.account.uid) : null} />
 								<Dropdown.Item text='Open...' description='ctrl + o' />
 								<Dropdown.Item text='Save as...' description='ctrl + s' />
 								<Dropdown.Item text='Rename' description='ctrl + r' />
@@ -122,7 +124,11 @@ class NavBar extends Component {
 	}
 }
 
-export default withRouter(NavBar);
+const mapStatetoProps = (state) => ({
+	account: state.account
+})
+
+export default withRouter(connect(mapStatetoProps)(NavBar));
 
 
 

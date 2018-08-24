@@ -45,6 +45,34 @@ function AccountReducer(state = accountIntialState, action) {
 	return newState;
 }
 
+/**
+ * Company Reducer
+ */
+
+const companyIntialState = {
+	company: null,
+	loading: false,
+	error: null
+};
+
+function CompanyReducer(state = companyIntialState, action) {
+	const newState = Object.assign({}, state);
+	switch (action.type) {
+		case 'REQUEST_CREATE_COMPANY':
+			newState.loading = true;
+			break;
+		case 'RECEIVE_CREATE_COMPANY':
+			newState.loading = false;
+			newState.company = action.company;
+			break;
+		case 'COMPANY_ERROR':
+			newState.loading = false;
+			newState.error = action.message;
+			break;
+	}
+	return newState;
+}
+
 
 
 
@@ -53,5 +81,6 @@ function AccountReducer(state = accountIntialState, action) {
  * *Export Reducers
  */
 export default {
-	AccountReducer
+	AccountReducer,
+	CompanyReducer
 }

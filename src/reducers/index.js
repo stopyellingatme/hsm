@@ -4,6 +4,7 @@ import reducers from './reducers';
 
 const rootReducer = combineReducers({
 	account: reducers.AccountReducer,
+	company: reducers.CompanyReducer,
 	routing: routerReducer
 });
 
